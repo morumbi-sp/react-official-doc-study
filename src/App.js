@@ -1,13 +1,42 @@
-import { createElement, useState } from 'react';
+import { useState } from 'react';
 import './App.css';
 
-function App() {
+function Square() {
+  const [value, setValue] = useState(null);
+  const handleClick = () => {
+    setValue('X');
+  };
+  return (
+    <button className='square' onClick={handleClick}>
+      {value}
+    </button>
+  );
+}
+
+function Board() {
   return (
     <>
-      <button className='square'>X</button>
-      <button className='square'>X</button>
+      <div className='board-row'>
+        <Square />
+        <Square />
+        <Square />
+      </div>
+      <div className='board-row'>
+        <Square />
+        <Square />
+        <Square />
+      </div>
+      <div className='board-row'>
+        <Square />
+        <Square />
+        <Square />
+      </div>
     </>
   );
+}
+
+function App() {
+  return <Board />;
 }
 
 export default App;
