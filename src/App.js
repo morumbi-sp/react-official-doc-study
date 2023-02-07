@@ -1,20 +1,17 @@
-const poem = {
-  lines: [
-    'I write, erase, rewrite',
-    'Erase again, and then',
-    'A poppy blooms.',
-  ],
-};
+let guest = 0;
+
+function Cup() {
+  // Bad: changing a preexisting variable!
+  guest = guest + 1;
+  return <h2>Tea cup for guest #{guest}</h2>;
+}
 
 export default function App() {
   return (
-    <article>
-      {poem.lines.map((line, index) => (
-        <div key={index}>
-          <p>{line}</p>
-          {index < poem.lines.length - 1 ? <hr /> : null}
-        </div>
-      ))}
-    </article>
+    <>
+      <Cup />
+      <Cup />
+      <Cup />
+    </>
   );
 }
