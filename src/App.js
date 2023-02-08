@@ -1,17 +1,45 @@
-let guest = 0;
+import { useState } from 'react';
+import { sculptureList } from './data.js';
 
-function Cup() {
-  // Bad: changing a preexisting variable!
-  guest = guest + 1;
-  return <h2>Tea cup for guest #{guest}</h2>;
-}
+export default function Gallery() {
+  const [index, setIndex] = useState(0);
+  const [showMore, setShowMore] = useState(false);
 
-export default function App() {
+  let hasPrev = index > 0;
+  let hasNext = index < sculptureList.length - 1;
+
+  function handleNextClick() {
+    if (hasNext) setIndex(index + 1);
+  }
+  function handlePreviousClick() {
+    if (hasPrev) setIndex(index - 1);
+  }
+
+  function handleMoreClick() {
+    setShowMore(!showMore);
+  }
+
+  let sculpture = sculptureList[index];
   return (
     <>
-      <Cup />
-      <Cup />
-      <Cup />
+      <button onClick={handlePreviousClick} disabled={!hasPrev}>
+        Previous
+      </button>
+      <button onClick={handleNextClick} disabled={!hasNext}>
+        Next
+      </button>
+      <h2>
+        <i>{sculpture.name} </i>
+        by {sculpture.artist}
+      </h2>
+      <h3>
+        ({index + 1} of {sculptureList.length})
+      </h3>
+      <button onClick={handleMoreClick}>
+        {showMore ? 'Hide' : 'Show'} details
+      </button>
+      {showMore && <p>{sculpture.description}</p>}
+      <img src={sculpture.url} alt={sculpture.alt} />
     </>
   );
 }
